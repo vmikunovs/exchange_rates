@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ExchangeRepository")
@@ -34,6 +35,7 @@ class Exchange {
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Currency", mappedBy="exchange", cascade={"persist", "remove"})
+     * @OrderBy({"code" = "ASC"})
      */
     private $currencies;
 

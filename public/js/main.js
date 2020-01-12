@@ -1,3 +1,4 @@
+/*
 const exchangeFrom = document.getElementById('exchange_fromCurrency');
 const exchangeTo = document.getElementById('exchange_toCurrency');
 const exchangeFromAmount = document.getElementById('exchange_fromAmount');
@@ -11,32 +12,4 @@ if (exchangeFrom) {
             .then(res => window.location.reload());
     }))
 }
-
-if (exchangeTo) {
-    exchangeTo.addEventListener('change', (e => {
-        const text = e.target.options[e.target.selectedIndex].text;
-        console.log(text);
-/*        fetch(`/article/delete/${id}`, {method: 'DELETE'})
-            .then(res => window.location.reload());*/
-    }))
-}
-
-if (exchangeFromAmount) {
-    exchangeFromAmount.addEventListener('change', (e => {
-        const text = e.target.value;
-        console.log(text);
-/*        fetch(`/article/delete/${id}`, {method: 'DELETE'})
-            .then(res => window.location.reload());*/
-    }))
-}
-
-if (exchangeToAmount) {
-    exchangeToAmount.addEventListener('change', (e => {
-        const text = e.target.value;
-        console.log(text);
-/*        fetch(`/article/delete/${id}`, {method: 'DELETE'})
-            .then(res => window.location.reload());*/
-    }))
-}
-
-
+*/

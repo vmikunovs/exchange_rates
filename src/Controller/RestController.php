@@ -55,6 +55,6 @@ class RestController extends AbstractFOSRestController
                 return $this->view(['from' => 'amount for currency convert can not be '. $amount],  Response::HTTP_BAD_REQUEST);
         }
 
-         return $this->view($this->exchangeService->convert($from, $to, $amount), Response::HTTP_OK);
+         return $this->view($this->exchangeService->convert('ECB', $from, $to, $amount), Response::HTTP_OK);
     }
 }

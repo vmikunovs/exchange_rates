@@ -13,8 +13,6 @@ use App\Services\Processors\CurrencyProcessorInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
-use function Composer\Autoload\includeFile;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\iterator;
 
 class ExchangeService
 {
@@ -85,28 +83,30 @@ class ExchangeService
     public function createExchangeModel($selectedExchangerType)
     {
         $exchange = $this->exchangeRepository->findOneByType($selectedExchangerType);
-        $fromCurrency = $exchange->getBase();
+        $base = $exchange->getBase();
 
         if ($exchange) {
             $currencies = $exchange->getCurrencies();
 
             foreach ($currencies as $currency) {
-                if ($currency->getCode() != $fromCurrency) {
-                    $secondCurrencyCode = $currency->getCode();
-                    $secondCurrencyAmount = $currency->getRate();
+                if ($currency->getCode() == $base) {
+                    $fromCurrency = $currency;
+                }  else if (!isset($toCurrency)) {
+                    $toCurrency = $currency;
+                }
+
+                if (isset($fromCurrency) && isset($toCurrency)) {
                     break;
                 }
             }
 
-            if (!isset($secondCurrencyCode)) {
-                $secondCurrencyCode = $fromCurrency;
+            if (!isset($fromCurrency) && !isset($toCurrency)) {
+                return null;
             }
 
-            if (!isset($secondCurrencyAmount)) {
-                $secondCurrencyAmount = 1;
-            }
+            $rate = $this->getRate($selectedExchangerType, $fromCurrency, $toCurrency);
 
-            return new ExchangeModel($fromCurrency, $secondCurrencyCode, 1, $secondCurrencyAmount, $currencies);
+            return new ExchangeModel($fromCurrency->getCode(), $toCurrency->getCode(), 1, $rate, $currencies);
         }
 
         return null;
@@ -139,21 +139,12 @@ class ExchangeService
     private function getRate($exchangeType, $from, $to) {
         //ToDo realize store result in cache example Map<ExchangeType, Map<CurrencyPair, Float> cache = new HashMap<>();
 
-/*        if ($from->getCode() == $from->getExchange()->getBase()) {
-            return $to->getValue();
-        }
-
-        if ($to->getCode() == $to->getExchange()->getBase()) {
-            return 1 / $from->getValue();
-        }*/
-
         foreach ($this->processors as $processor) {
             if ($processor->getExchangerType() == $exchangeType) {
 
                 return $processor->getRate($from, $to);
             }
         }
-
 
         //ToDo throw wrong exchange type exception
         return null;

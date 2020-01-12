@@ -1,0 +1,13 @@
+## do not work routes without .htaccess -> composer require apache-pack
+
+## update composer
+composer update
+
+1) php bin/console doctrine:migrations:diff
+2) php bin/console doctrine:migrations:migrate
+3) php bin/console app:exchange-rates-update
+
+## information about all routes
+php bin/console debug:router
+
+

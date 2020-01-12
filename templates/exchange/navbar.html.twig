@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
+    <div class="container">
+        <a href="/" class="navbar-brand">Exchanger</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
+            <span class="navbar-toggle-icon"></span>
+        </button>
+
+        {% if exchangersTypes %}
+            <div class="collapse navbar-collapse" id="mobile-nav">
+                <ul class="navbar-nav ml-auto">
+                    {% for type in exchangersTypes %}
+                        <li class="nav-item">
+                            {% if type['type'] == selectedExchangerType %}
+                                <a  href="/changeExchanger/{{ type['type'] }}" class='nav-link selected'>{{ type['type'] }}</a>
+                            {% else %}
+                                <a  href="/changeExchanger/{{ type['type'] }}" class='nav-link'>{{ type['type'] }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="collapse navbar-collapse" id="mobile-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Home</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

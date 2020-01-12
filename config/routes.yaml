@@ -1,0 +1,7 @@
+index:
+    path: /
+    controller: App\Controller\ExchangeController::index
+api:
+    type: rest
+    resource: App\Controller\RestController
+    prefix: api

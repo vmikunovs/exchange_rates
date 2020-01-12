@@ -1,0 +1,35 @@
+{% block body %}
+    {% if form %}
+    {{ include('exchange/form.html.twig') }}
+    {% endif %}
+   {# {% if exchange %}
+        {{ exchange }}
+
+        <table id="exchange" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Value</th>
+                <th>Nominal</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for currency in currencies %}
+                <tr>
+                    <td>{{ currency.code }}</td>
+                    <td>{{ currency.value }}</td>
+                    <td>{{ currency.nominal }}</td>
+                    <td>
+                        <a href="/article/{{ currency.id }}" class="btn btn-dark">Show</a>
+                        <a href="/article/edit/{{ currency.id }}" class="btn btn-light">Edit</a>
+                        <a href="#" class="btn btn-danger delete-article" data-id="{{ currency.id }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}#}
+        <p>No exchange to display</p>
+{#    {% endif %}#}
+
+{% endblock %}

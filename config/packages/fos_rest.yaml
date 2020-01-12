@@ -1,0 +1,43 @@
+fos_rest:
+  routing_loader:
+    default_format: json
+    include_format: false
+  exception:
+    enabled:  true
+  param_fetcher_listener: force
+  view:
+    formats:
+      json: true
+    view_response_listener: force
+  body_listener: true
+  format_listener:
+    rules:
+      - { path: '^/api/', priorities: ['json'], fallback_format: json}
+      - { path: '^/', stop: true }
+
+
+#fos_rest:
+#  routing_loader:
+#    default_format: json
+#  body_converter:
+#    enabled: true
+#    validate: true
+#  serializer:
+#    serialize_null: true
+#  view:
+#    formats:
+#      xml:  false
+#      json: true
+#      rss:  false
+#      yml:  true
+#    view_response_listener: force
+#  param_fetcher_listener: force
+#  format_listener:
+#    rules:
+#      - { path: '^/api/', priorities: ['json', 'yml'], fallback_format: json, prefer_extension: true }
+#      - { path: '^/', stop: true } # FOSRest should not handle other routes than API
+#  versioning:
+#    enabled: true
+#    resolvers:
+#      media_type:
+#        enabled: true

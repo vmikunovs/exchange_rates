@@ -1,0 +1,4 @@
+#selected: ECB
+#exchanges:
+#  - { ECB: https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml}
+#  - { CBR: https://www.cbr.ru/scripts/XML_daily.asp}
